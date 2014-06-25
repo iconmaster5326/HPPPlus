@@ -22,7 +22,7 @@ public class HPPPlus {
         Parser.registerDefaultHandlers();
         
         System.out.println("--TOKENIZE--");
-        ArrayList a = (new Tokenizer("@normal\n@@global\n@normal")).tokenize();
+        ArrayList a = (new Tokenizer("if 1 then wow end")).tokenize();
         System.out.println(a);
         System.out.println("--PARSE--");
         ArrayList a2 = (new Parser(a)).parse();
