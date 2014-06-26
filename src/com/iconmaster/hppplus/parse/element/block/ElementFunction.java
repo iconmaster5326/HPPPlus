@@ -9,6 +9,9 @@ import com.iconmaster.hppplus.exception.parse.EndExpectedException;
 import com.iconmaster.hppplus.exception.parse.SyntaxException;
 import com.iconmaster.hppplus.parse.Element;
 import com.iconmaster.hppplus.parse.Parser;
+import com.iconmaster.hppplus.parse.element.operator.ElementCall.CallData;
+import com.iconmaster.hppplus.parse.element.ElementVariable;
+import com.iconmaster.hppplus.parse.element.operator.ElementCall;
 import com.iconmaster.hppplus.tokenize.Token;
 import com.iconmaster.hppplus.tokenize.element.TokenWord;
 import java.util.ArrayList;
@@ -19,33 +22,37 @@ import java.util.ArrayList;
  */
 public class ElementFunction implements Element {
     public class FunctionData {
-        public Element name;
+        public String name;
         public ArrayList<Element> block;
-        private FunctionData(Element name,ArrayList<Element> block) {
+        public ArrayList<Element> args;
+        private FunctionData(String name,ArrayList<Element> block,ArrayList<Element> args) {
             this.name = name;
+            this.args = args;
             this.block = block;
         }
     }
     
     private SourceRange range;
-    private Element name;
+    private String name;
     private ArrayList<Element> block;
+    private ArrayList<Element> args;
     private int blockSize;
     
     public ElementFunction() {
         
     }
 
-    public ElementFunction(Element name,ArrayList<Element> block,int blockSize,SourceRange range) {
+    public ElementFunction(String name,ArrayList<Element> block,ArrayList<Element> args,int blockSize,SourceRange range) {
         this.name = name;
         this.block = block;
+        this.args = args;
         this.blockSize = blockSize;
         this.range = range;
     }
     
     @Override
     public Object getParsedContent() {
-        return new FunctionData(name,block);
+        return new FunctionData(name,block,args);
     }
 
     @Override
@@ -96,7 +103,11 @@ public class ElementFunction implements Element {
         }
         Parser parser = new Parser(toParse);
         ArrayList<Element> output = parser.parse();
-        return new ElementFunction((Element) parseList.get(at+1),output,2+end-at,SourceRange.between(((Token)parseList.get(at)).getRange(), ((Token)parseList.get(end+1)).getRange()));
+        
+        if (!(parseList.get(at+1) instanceof ElementCall)) {
+            throw new SyntaxException(parseList.get(at+1).getRange(),parseList.get(at+1));
+        }
+        return new ElementFunction(((CallData) parseList.get(at+1).getParsedContent()).name,output,((CallData) parseList.get(at+1).getParsedContent()).args,2+end-at,SourceRange.between(((Token)parseList.get(at)).getRange(), ((Token)parseList.get(end+1)).getRange()));
     }
 
     @Override

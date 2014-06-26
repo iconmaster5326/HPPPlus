@@ -1,9 +1,9 @@
 
 package com.iconmaster.hppplus.exception.parse;
 
+import com.iconmaster.hppplus.Parseable;
 import com.iconmaster.hppplus.SourceRange;
 import com.iconmaster.hppplus.exception.HPPPlusException;
-import com.iconmaster.hppplus.tokenize.Token;
 
 /**
  *
@@ -12,7 +12,7 @@ import com.iconmaster.hppplus.tokenize.Token;
 public class SyntaxException extends HPPPlusException {
     private String unknownChar;
     
-    public SyntaxException(SourceRange range,Token token) {
+    public SyntaxException(SourceRange range,Parseable token) {
         super(range,"Syntax error on token "+token);
     }
     

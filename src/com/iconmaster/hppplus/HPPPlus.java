@@ -2,6 +2,8 @@
 package com.iconmaster.hppplus;
 
 import com.iconmaster.hppplus.exception.HPPPlusException;
+import com.iconmaster.hppplus.link.LinkSpaceGlobal;
+import com.iconmaster.hppplus.link.Linker;
 import com.iconmaster.hppplus.parse.Parser;
 import com.iconmaster.hppplus.tokenize.Tokenizer;
 import java.util.ArrayList;
@@ -20,13 +22,17 @@ public class HPPPlus {
     public static void main(String[] args) throws HPPPlusException {
         Tokenizer.registerDefaultHandlers();
         Parser.registerDefaultHandlers();
+        Linker.registerDefaultHandlers();
         
         System.out.println("--TOKENIZE--");
-        ArrayList a = (new Tokenizer("if 1 then wow end")).tokenize();
+        ArrayList a = (new Tokenizer("function test(wow as string,two) stuff end")).tokenize();
         System.out.println(a);
         System.out.println("--PARSE--");
         ArrayList a2 = (new Parser(a)).parse();
         System.out.println(a2);
+        System.out.println("--LINK--");
+        LinkSpaceGlobal a3 = (new Linker(a2)).link();
+        System.out.println(a3);
     }
     
     public static boolean isReservedWord(String string) {

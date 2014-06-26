@@ -6,9 +6,14 @@ package com.iconmaster.hppplus.link;
  * @author iconmaster
  */
 public class VariablePrototype implements Directable {
-    private String name;
+    private final String name;
     
     public VariablePrototype(String name) {
         this.name = name;
+    }
+    
+    @Override
+    public String toString() {
+        return "["+name+"]";
     }
 }

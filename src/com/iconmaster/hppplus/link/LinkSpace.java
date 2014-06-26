@@ -15,4 +15,9 @@ public class LinkSpace {
     public LinkSpace(ArrayList<Statement> statements) {
         this.statements = statements;
     }
+    
+    @Override
+    public String toString() {
+        return "[LINKSPACE: "+vars.size()+" vars, "+statements.size()+" statements]";
+    }
 }
