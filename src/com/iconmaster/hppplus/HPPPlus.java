@@ -25,7 +25,7 @@ public class HPPPlus {
         Linker.registerDefaultHandlers();
         
         System.out.println("--TOKENIZE--");
-        ArrayList a = (new Tokenizer("function test(wow as string,two) stuff end")).tokenize();
+        ArrayList a = (new Tokenizer("i=1 function test(v1,v2) v1=v2 end")).tokenize();
         System.out.println(a);
         System.out.println("--PARSE--");
         ArrayList a2 = (new Parser(a)).parse();

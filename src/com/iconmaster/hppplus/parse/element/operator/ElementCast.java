@@ -14,23 +14,23 @@ import java.util.ArrayList;
  */
 public class ElementCast implements Element {
     public class CastData {
-        public Parseable lvalue = null;
-        public Parseable rvalue = null;
-        private CastData(Parseable lvalue, Parseable rvalue) {
+        public Element lvalue = null;
+        public Element rvalue = null;
+        private CastData(Element lvalue, Element rvalue) {
             this.lvalue = lvalue;
             this.rvalue = rvalue;
         }
     }
     
-    private Parseable lvalue = null;
-    private Parseable rvalue = null;
+    private Element lvalue = null;
+    private Element rvalue = null;
     private SourceRange range;
     
     public ElementCast() {
         
     }
 
-    public ElementCast(Parseable lvalue,Parseable rvalue,SourceRange range) {
+    public ElementCast(Element lvalue,Element rvalue,SourceRange range) {
         this.lvalue = lvalue;
         this.rvalue = rvalue;
         this.range = range;
@@ -64,7 +64,7 @@ public class ElementCast implements Element {
         //return new ElementOperator(op,token.getRange());
        Parseable lvalue = (Parseable) parseList.get(at);
        Parseable rvalue = (Parseable) parseList.get(at+2);
-       return new ElementCast(lvalue,rvalue,SourceRange.between(lvalue.getRange(), rvalue.getRange()));
+       return new ElementCast((Element)lvalue,(Element)rvalue,SourceRange.between(lvalue.getRange(), rvalue.getRange()));
     }
 
     @Override

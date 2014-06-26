@@ -16,4 +16,8 @@ public class VariablePrototype implements Directable {
     public String toString() {
         return "["+name+"]";
     }
+
+    String getName() {
+        return name;
+    }
 }

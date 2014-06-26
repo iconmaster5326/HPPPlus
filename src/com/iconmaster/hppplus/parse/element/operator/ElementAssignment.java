@@ -14,23 +14,23 @@ import java.util.ArrayList;
  */
 public class ElementAssignment implements Element {
     public class AssignmentData {
-        public Parseable lvalue = null;
-        public Parseable rvalue = null;
-        private AssignmentData(Parseable lvalue, Parseable rvalue) {
+        public Element lvalue = null;
+        public Element rvalue = null;
+        private AssignmentData(Element lvalue, Element rvalue) {
             this.lvalue = lvalue;
             this.rvalue = rvalue;
         }
     }
     
-    private Parseable lvalue = null;
-    private Parseable rvalue = null;
+    private Element lvalue = null;
+    private Element rvalue = null;
     private SourceRange range;
     
     public ElementAssignment() {
         
     }
 
-    public ElementAssignment(Parseable lvalue,Parseable rvalue,SourceRange range) {
+    public ElementAssignment(Element lvalue,Element rvalue,SourceRange range) {
         this.lvalue = lvalue;
         this.rvalue = rvalue;
         this.range = range;
@@ -65,7 +65,7 @@ public class ElementAssignment implements Element {
        Parseable lvalue = (Parseable) parseList.get(at);
        Parseable opvalue = (Parseable) parseList.get(at+1);
        Parseable rvalue = (Parseable) parseList.get(at+2);
-       return new ElementAssignment(lvalue,rvalue,SourceRange.between(lvalue.getRange(), rvalue.getRange()));
+       return new ElementAssignment((Element)lvalue,(Element)rvalue,SourceRange.between(lvalue.getRange(), rvalue.getRange()));
     }
 
     @Override
